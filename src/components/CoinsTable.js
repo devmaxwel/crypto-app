@@ -12,16 +12,31 @@ import {
   TableCell,
   TableBody,
   makeStyles,
+ 
 } from "@material-ui/core";
+import {Pagination} from '@material-ui/lab'
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
 import { CoinList } from "../api/API";
 import { UsecryptoState } from "../context/CryptoContext";
 import { numberWithComas } from "./banner/Corousel";
 
 
 const useStyles = makeStyles(() => ({
+    row:{
+        backgroundColor:"#16171",
+        cursor:"pointer",
+        "&:hover":{
+            backgroundColor:"#131111",
+        },
+        fontFamily:"Montserrat"
+    },
+    pagination:{
+        "& .MuiPaginationItem-root":{
+            color:"#1070FD",
+        },
+    }
           
 }));
 
@@ -30,6 +45,7 @@ const CoinsTable = () => {
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
   const history = useHistory("")
 
   const { currency, symbol } = UsecryptoState();
@@ -75,7 +91,7 @@ const CoinsTable = () => {
       >
         <Typography
           variant="h4"
-          style={{ margin: 18, fontFamily: "Montserrat" }}
+          style={{ color:"#0D6EFD", margin: 18, fontFamily: "Montserrat" }}
         >
           Cryptocurrency Prices By market-Cap
         </Typography>
@@ -93,27 +109,27 @@ const CoinsTable = () => {
           {loading ? (
             <LinearProgress
               style={{
-                background: "gold",
+                background: "#1070FD",
               }}
             />
           ) : (
             <Table>  
               <TableHead
                 style={{
-                  backgroundColor: "#EEBC1D",
+                  backgroundColor: "#0D6EFD",
                 }}
               >
                 <TableRow>
                   {["Coin", "Price", "24h_Change", "Market_Cap"].map((head) => (
                     <TableCell
                       style={{
-                        color: "black",
+                        color: "#fff",
                         fontWeight: "700",
                         fontFamily: "Montserrat",
                       }}
                       key={head}
                       align={head === "coin"? "": "right"}
-                   
+                     className={classes.row}
                     >
                       {head}
                     </TableCell>
@@ -122,7 +138,9 @@ const CoinsTable = () => {
                 </TableRow>
               </TableHead>
               <TableBody >
-                   {handleSearch().map((row) => {
+                   {handleSearch()
+                   .slice((page-1)*10, (page-1)* 10 + 10)
+                   .map((row) => {
                        const profit = row.price_change_percentage_24h>0;
 
                        return (
@@ -132,7 +150,7 @@ const CoinsTable = () => {
                            key={row.name}>
 
                                <TableCell component="th" scope="row"
-                               styles={{
+                               style={{
                                    display:"flex",
                                    gap:15,    
 
@@ -185,6 +203,12 @@ const CoinsTable = () => {
                                    {row.price_change_percentage_24h.toFixed()}%
 
                                </TableCell>
+                               <TableCell
+                               align="right" >
+                                   {symbol}{" "}
+                                   {numberWithComas(row.market_cap).toString().slice(0,-6)}M
+
+                               </TableCell>
                                
                            </TableRow>
                        )
@@ -192,6 +216,20 @@ const CoinsTable = () => {
               </TableBody>
             </Table>
           )}
+          <Pagination 
+          style={{
+              padding:20,
+              width:"100%",
+              display:"flex",
+              justifyContent:"center",
+             
+          }}
+          onChange={(_,value) => {
+              setPage(value);
+              window.scroll(0,450);
+          }}
+          classes={{ul: classes.pagination}}
+          count={(handleSearch().length/10).toFixed(0)} />
         </TableContainer>
       </Container>
     </ThemeProvider>
