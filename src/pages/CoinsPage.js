@@ -4,28 +4,24 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { SingleCoin } from "../api/API";
 import { UsecryptoState } from "../context/CryptoContext";
-import CoinInfo from "./CoinInfo";
 import ReactHtmlParser from 'react-html-parser';
 import { numberWithComas } from "../components/banner/Corousel";
+import CoinInfo from '../components/CoinInfo'
 
 const CoinsPage = () => {
   const { id } = useParams();
   const [coin, setCoin] = useState();
-  const [loading, setLoading] = useState(false);
-
   const { currency, symbol } = UsecryptoState();
 
   const fetchSignleCoin = async () => {
     const { data } = await axios.get(SingleCoin(id));
     setCoin(data);
   };
+ // eslint-disable-next-line
 
   useEffect(() => {
     fetchSignleCoin();
-  }, []);
-  console.log(coin);
-
-  
+  }, [coin]);
 
   const useStyles = makeStyles((theme) => ({
       container:{

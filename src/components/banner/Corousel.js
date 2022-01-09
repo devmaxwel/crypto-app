@@ -39,6 +39,9 @@ const Corousel = () => {
 
     }
     console.log(trending)
+
+    // eslint-disable-next-line
+    
     useEffect(() => {
 
         fetchTrendingCoins();

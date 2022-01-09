@@ -59,10 +59,12 @@ const CoinsTable = () => {
     console.log(coins);
   };
 
+  // eslint-disable-next-line
+
   useEffect(() => {
       
     fetchCoinList();
-  }, [currency]);
+  }, [currency,]);
 
   const darkTheme = createTheme({
     palette: {

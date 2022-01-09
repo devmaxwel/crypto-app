@@ -28,7 +28,7 @@ const Header = () => {
   const history = useHistory("");
   const classes = useStyles();
 
-  const {currency, symbol, setCurrency} = UsecryptoState();
+  const {currency, setCurrency} = UsecryptoState();
 
   const darkTheme = createTheme({
     palette: {
