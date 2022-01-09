@@ -39,18 +39,19 @@ const CoinInfo = ({ coin }) => {
 
   const classes = useStyles();
 
-  const fetchHistoricData = async () => {
-    const { data } = await axios.get(HistoricalChart(coin.id, days, currency));
-    setflag(true);
-    setHistoricData(data.prices);
-  };
+  
 
-  console.log(coin);
-// eslint-disable-next-line
 
   useEffect(() => {
+    const fetchHistoricData = async () => {
+      const { data } = await axios.get(HistoricalChart(coin.id, days, currency));
+      setflag(true);
+      setHistoricData(data.prices);
+    };
+
     fetchHistoricData();
-   
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currency, days]);
 
   const darkTheme = createTheme({
@@ -87,7 +88,7 @@ const CoinInfo = ({ coin }) => {
                 datasets: [
                   {
                     data: historicData.map((coin) => coin[1]),
-                    label: `Price ( Past ${days} Days ) in ${currency}`,
+                    label: `Prices ( Past ${days} Days ) in ${currency}`,
                     borderColor: "#EEBC1D",
                   },
                 ],
