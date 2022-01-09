@@ -21,7 +21,7 @@ const CoinInfo = ({ coin }) => {
 
   const useStyles = makeStyles((theme) => ({
     container: {
-      width: "75%",
+      width: "76%",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -51,7 +51,7 @@ const CoinInfo = ({ coin }) => {
   useEffect(() => {
     fetchHistoricData();
    
-  }, [currency,days]);
+  }, [currency, days]);
 
   const darkTheme = createTheme({
     palette: {
