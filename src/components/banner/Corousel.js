@@ -40,11 +40,12 @@ const Corousel = () => {
     }
     console.log(trending)
 
-    // eslint-disable-next-line
+
 
     useEffect(() => {
         fetchTrendingCoins();
-
+        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[currency])
 
     const classes = useStyles();
