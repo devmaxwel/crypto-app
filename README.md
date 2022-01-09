@@ -1,5 +1,5 @@
 ## Ninja Crypto React App
-![Screenshot](screenshot.png)
+![Crypto](crypto.png)
 
 ## Demo
 #### Here is a working live demo :  https://crypto-ninja.netlify.app/
