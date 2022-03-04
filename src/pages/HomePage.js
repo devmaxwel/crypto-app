@@ -6,13 +6,13 @@ import AdSense from "react-adsense";
 const HomePage = () => {
   return (
     <div>
+      <Banner />
       <AdSense.Google 
       client={process.env.REACT_APP_KEY} 
       slot={process.env.ID} 
       style={{ display: 'block' }}
       layout='in-article'
       format='fluid' />
-      <Banner />
       <CoinsTable />
     </div>
   );
